@@ -29,3 +29,11 @@ function operate (operator, firstNumber, secondNumber) {
     return divide(firstNumber,secondNumber)
   } else return 'Error unknown operation';
 }
+
+let display = document.querySelector('.calculator-display');
+
+function displayInputs (value) {
+  display.textContent += `${value}`;
+}
+displayInputs('44');
+displayInputs('33')
