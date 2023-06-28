@@ -1,7 +1,8 @@
-let firstNumber = 0;
-let secondNumber = 0;
+let firstNumber = null;
+let secondNumber = null;
+let equation = [];
 let ans = '';
-let operation = '';
+let currentOperator = '';
 let display = document.querySelector('.calculator-display');
 const zeroBtn = document.querySelector('#zero-btn');
 const oneBtn = document.querySelector('#one-btn');
@@ -13,7 +14,13 @@ const sixBtn = document.querySelector('#six-btn');
 const sevenBtn = document.querySelector('#seven-btn');
 const eightBtn = document.querySelector('#eight-btn');
 const nineBtn = document.querySelector('#nine-btn');
+const addBtn = document.querySelector('#add-btn');
+const subtractBtn = document.querySelector('#subtract-btn');
+const multiplyBtn = document.querySelector('#multiply-btn');
+const divideBtn = document.querySelector('#divide-btn');
+const equalsBtn = document.querySelector('#equals-btn');
 const clearBtn = document.querySelector('#clear-btn');
+const allClearBtn = document.querySelector('#all-clear-btn');
 
 zeroBtn.addEventListener('click', () => displayInputs(0));
 oneBtn.addEventListener('click',() => displayInputs(1));
@@ -25,7 +32,18 @@ sixBtn.addEventListener('click', () => displayInputs(6));
 sevenBtn.addEventListener('click', () => displayInputs(7));
 eightBtn.addEventListener('click', () => displayInputs(8));
 nineBtn.addEventListener('click', () => displayInputs(9));
+addBtn.addEventListener('click', () => setOperator('+'));
+subtractBtn.addEventListener('click', () => setOperator('-'));
+multiplyBtn.addEventListener('click', () => setOperator('x'));
+divideBtn.addEventListener('click', () => setOperator('/'));
 clearBtn.addEventListener('click', () => clearInput());
+allClearBtn.addEventListener('click', () => clearAllInput());
+equalsBtn.addEventListener('click', function () {
+  storeSecondInput(display.textContent);
+  alert(operate(firstNumber, currentOperator, secondNumber));
+  
+})
+
 
 function add (a,b) {
   return +a + +b;
@@ -43,23 +61,50 @@ function divide (a,b) {
   return a / b;
 }
 
-function operate (operator, firstNumber, secondNumber) {
-  if (operator === '+') {
+function operate (firstNumber, currentOperator , secondNumber) {
+  if (currentOperator === '+') {
     return add(firstNumber,secondNumber);
-  } else if (operator === '-') {
+  } else if (currentOperator === '-') {
     return subtract(firstNumber,secondNumber);
-  } else if (operator === 'x') {
+  } else if (currentOperator === 'x') {
     return multiply(firstNumber,secondNumber);
-  } else if ( operator === '/') {
+  } else if ( currentOperator === '/') {
     return divide(firstNumber,secondNumber)
   } else return 'Error unknown operation';
 }
 
 function displayInputs (value) {
-  display.textContent += `${value}`;
+  if (value.typeOf === Number){
+    return display.textContent += `${value}`;
+  } else {
+    return display.textContent += value;
+  }
+  
 }
 
 function clearInput () {
   display.textContent = display.textContent.slice(0, display.textContent.length -1);
 }
 
+function clearAllInput () {
+  display.textContent = '';
+}
+
+function setOperator (operator) {
+  storeFirstInput(display.textContent);
+  if (currentOperator === '') {
+    currentOperator = operator;
+    clearAllInput();
+    return currentOperator;
+  }
+}
+
+function storeFirstInput (number) {
+  firstNumber = number;
+  return firstNumber;
+}
+
+function storeSecondInput (number) {
+  secondNumber = number;
+  return secondNumber;
+}
