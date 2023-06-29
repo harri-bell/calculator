@@ -40,8 +40,8 @@ clearBtn.addEventListener('click', () => clearInput());
 allClearBtn.addEventListener('click', () => clearAllInput());
 equalsBtn.addEventListener('click', function () {
   storeSecondInput(display.textContent);
-  alert(operate(firstNumber, currentOperator, secondNumber));
-  
+  displayInputs(operate(firstNumber, currentOperator, secondNumber));
+  resetInputs();
 })
 
 
@@ -58,6 +58,9 @@ function multiply (a,b) {
 }
 
 function divide (a,b) {
+  if (b === '0') {
+    return 'Oh no you dont';
+  }
   return a / b;
 }
 
@@ -96,6 +99,8 @@ function setOperator (operator) {
     currentOperator = operator;
     clearAllInput();
     return currentOperator;
+  } else {
+    return currentOperator = operator;
   }
 }
 
@@ -106,5 +111,12 @@ function storeFirstInput (number) {
 
 function storeSecondInput (number) {
   secondNumber = number;
+  clearAllInput();
   return secondNumber;
+}
+
+function resetInputs () {
+  firstNumber = display.textContent;
+  secondNumber = null;
+  currentOperator = '';
 }
