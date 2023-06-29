@@ -1,7 +1,5 @@
 let firstNumber = null;
 let secondNumber = null;
-let equation = [];
-let ans = '';
 let currentOperator = '';
 let display = document.querySelector('.calculator-display');
 const zeroBtn = document.querySelector('#zero-btn');
@@ -42,7 +40,8 @@ equalsBtn.addEventListener('click', function () {
   storeSecondInput(display.textContent);
   displayInputs(operate(firstNumber, currentOperator, secondNumber));
   resetInputs();
-})
+});
+ansBtn.addEventListener('click', () => showLastAns());
 
 
 function add (a,b) {
